@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jio.dao.StudentDao">
+	<select id="queryAllStudents" resultType="Student">
+		select 
+			s.s_id sId,
+			s.s_name sName, 
+			s.s_password  sPassword,
+			s.s_age sAge ,
+			s.s_createDate sCreateDate,
+			j.j_id "subject.jId",
+			j.j_name "subject.jName"
+		 from 
+		 	students s,subject j
+		 where 
+		  	s.subject_id = j.j_id
+		  	ORDER By
+		  	s.s_id;
+	</select>
+	<!-- <resultMap type="Student" id="getresultMap">
+		<id property="sId" column="s_id"/>
+		<result property="sName" column="s_name"/>
+		<result property="sPassword" column="s_password"/>
+		<result property="sAge" column="s_age"/>
+		<result property="sCreateDate" column="s_createDate"/>
+		
+		<association property="subject" column="subject_id" javaType="Subject">
+			<id property="jId" column="j_id"/>
+			<result property="jName" column="j_name"/>
+			
+		</association>
+	</resultMap> -->
+	
+	<select id="queryStudentById" resultType="Student" parameterType="int">
+		select 
+			s.s_id sId,
+			s.s_name sName, 
+			s.s_password  sPassword,
+			s.s_age sAge ,
+			s.s_createDate sCreateDate,
+			j.j_id "subject.jId",
+			j.j_name "subject.jName"
+		 from 
+		 	students s,subject j
+		 where 
+		  	s.subject_id = j.j_id
+		  	and
+		  	s.s_id=#{sId}
+	</select>
+	
+	<insert id="addStudents" parameterType="AddStudent">
+		insert into students 
+			(s_name,s_password,s_age,s_createDate,subject_id)
+		values
+			(#{sName},#{sPassword},#{sAge},#{sCreateDate},#{subjectId});
+	</insert>
+	
+	<delete id="delStudent" parameterType="int">
+		delete from students  where s_id=#{sId}
+	</delete>
+	<update id="updateStudent" parameterType="AddStudent">
+		update students
+		 set
+		  s_name=#{sName},
+		  s_password=#{sPassword},
+		  s_age=#{sAge},
+		  s_createDate=#{sCreateDate},
+		  subject_id=#{subjectId}
+		  where
+		  s_id=#{sId}
+	</update>
+	<select id="findStudentByName" resultType="Student">
+		select 
+			s.s_id sId,
+			s.s_name sName, 
+			s.s_password  sPassword,
+			s.s_age sAge ,
+			s.s_createDate sCreateDate,
+			j.j_id "subject.jId",
+			j.j_name "subject.jName"
+		 from 
+		 	students s,subject j
+		 where 
+		  	s.subject_id = j.j_id
+		  	and
+		  	s.s_name=#{sName}
+	</select>
+	
+	<select id="findStudentBySubjectId" resultType="Student">
+		select 
+			s.s_id sId,
+			s.s_name sName, 
+			s.s_password  sPassword,
+			s.s_age sAge ,
+			s.s_createDate sCreateDate,
+			j.j_id "subject.jId",
+			j.j_name "subject.jName"
+		 from 
+		 	students s,subject j
+		 where 
+		  	s.subject_id = j.j_id
+		  	and
+		  	j.j_id=#{subject.jId}
+	</select>
+	
+</mapper>
