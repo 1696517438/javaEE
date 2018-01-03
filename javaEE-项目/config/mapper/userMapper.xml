@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jio.dao.UserDao">
+<resultMap type="User" id="UserMap">
+	<id property="uid" column="uid"/>
+	<result property="uname" column="uname"/>
+	<result property="upassword" column="upassword"/>
+	<result property="utype" column="utype"/>
+	<result property="uresumeid" column="uresumeid"/>
+	<result property="eid" column="eid"/>
+</resultMap>
+
+	<select id="queryAllUser" resultMap="UserMap">
+		select * from user;
+	</select>
+	
+	<select id="queryUserById" resultMap="UserMap">
+		select * from user where uid=#{id}
+	</select>
+	
+	<select id="queryUserByName" resultMap="UserMap">
+		select * from user where uname=#{name}
+	</select>
+	
+	<insert id="addUser" parameterType="user">
+	insert into `user`(`uname`,`upassword`,`utype`) values (#{uname},#{upassword},#{utype});
+	</insert>
+	<select id="queryUserByNameAndPassword" resultMap="UserMap">
+		select * from user where uname=#{name} and upassword=#{password}
+	</select>
+</mapper>
