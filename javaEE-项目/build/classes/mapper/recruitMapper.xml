@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jio.dao.RecruitDao">
+	<resultMap type="Recruit" id="recruitMap">
+		<id property="id" column="id"/>
+		<result property="positions" column="positions"/>
+		<result property="workexperience" column="workexperience"/>
+		<result property="diploma" column="diploma"/>
+		<result property="requires" column="requires"/>
+		<result property="name" column="name"/>
+		<result property="salary" column="salary"/>
+		<result property="describes" column="describes"/>
+	</resultMap>
+	<select id="queryAllRecruit" resultMap="recruitMap">
+		select * from recruit;
+	</select>
+</mapper>

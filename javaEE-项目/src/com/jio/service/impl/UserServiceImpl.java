@@ -44,4 +44,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.queryUserByNameAndPassword(name, password);
 	}
 
+	@Override
+	public int updateRid(int id, String name) {
+		
+		return userDao.updateRid(id, name);
+	}
+
 }

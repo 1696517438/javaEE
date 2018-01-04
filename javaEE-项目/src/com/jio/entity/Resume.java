@@ -14,6 +14,13 @@ public class Resume {
 	private String lastwork;
 	private String sface;
 	private String hobby;
+	private String gender;
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	public int getRid() {
 		return rid;
 	}
@@ -120,11 +127,45 @@ public class Resume {
 		this.sface = sface;
 		this.hobby = hobby;
 	}
+	public Resume(int rage, String rname, String reducation, String rphone, String remail, String rename, String salary,
+			int workexperience, String lastwork, String sface, String hobby, String gender) {
+		super();
+		this.rage = rage;
+		this.rname = rname;
+		this.reducation = reducation;
+		this.rphone = rphone;
+		this.remail = remail;
+		this.rename = rename;
+		this.salary = salary;
+		this.workexperience = workexperience;
+		this.lastwork = lastwork;
+		this.sface = sface;
+		this.hobby = hobby;
+		this.gender = gender;
+	}
 	@Override
 	public String toString() {
 		return "Resume [rid=" + rid + ", rage=" + rage + ", rname=" + rname + ", reducation=" + reducation + ", rphone="
 				+ rphone + ", remail=" + remail + ", rename=" + rename + ", salary=" + salary + ", workexperience="
-				+ workexperience + ", lastwork=" + lastwork + ", sface=" + sface + ", hobby=" + hobby + "]";
+				+ workexperience + ", lastwork=" + lastwork + ", sface=" + sface + ", hobby=" + hobby + ", gender="
+				+ gender + "]";
+	}
+	public Resume(int rid, int rage, String rname, String reducation, String rphone, String remail, String rename,
+			String salary, int workexperience, String lastwork, String sface, String hobby, String gender) {
+		super();
+		this.rid = rid;
+		this.rage = rage;
+		this.rname = rname;
+		this.reducation = reducation;
+		this.rphone = rphone;
+		this.remail = remail;
+		this.rename = rename;
+		this.salary = salary;
+		this.workexperience = workexperience;
+		this.lastwork = lastwork;
+		this.sface = sface;
+		this.hobby = hobby;
+		this.gender = gender;
 	}
 	
 	

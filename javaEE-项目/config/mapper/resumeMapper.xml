@@ -15,13 +15,21 @@
 	<result property="lastwork" column="lastwork"/>
 	<result property="sface" column="sface"/>
 	<result property="hobby" column="hobby"/>
+	<result property="gender" column="gender"/>
 </resultMap>
 	<select id="queryResumeByName" resultMap="ResumeMap">
 		select * from resume where rname=#{name}
 	</select>
+	
+	<select id="queryResumeById" resultMap="ResumeMap">
+		select * from resume where rid=#{id}
+	</select>
+	
 	<insert id="addResume" parameterType="Resume">
-	insert into resume (rage,rname,reducation,rphone,remail,renames,salary,workexperience,lastwork,sface,hobby)
-	 values (#{rage},#{rname},#{reducation},#{rphone},#{remail},#{rename},#{salary},#{workexperience},#{lastwork},#{sface},#{hobby})
+	insert into resume (rage,rname,reducation,rphone,remail,renames,salary,workexperience,lastwork,sface,hobby,gender)
+	 values (#{rage},#{rname},#{reducation},#{rphone},#{remail},#{rename},#{salary},#{workexperience},#{lastwork},#{sface},#{hobby},#{gender})
 	</insert>
-
+	<update id="updateResume" parameterType="Resume">
+	update `resume` set `rage`= #{rage},`rname`= #{rname},`reducation`= #{reducation},`rphone`= #{rphone},`remail`= #{remail},`renames`= #{rename},`salary`= #{salary},`workexperience`= #{workexperience},`lastwork`= #{lastwork},`sface`=#{sface},`hobby`=#{hobby},`gender`=#{gender} where `rid`=#{rid}
+	</update>
 </mapper>

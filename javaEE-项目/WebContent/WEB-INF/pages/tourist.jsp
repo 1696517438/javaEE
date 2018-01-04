@@ -17,8 +17,8 @@
 </head>
 <body style="background: url(${pageContext.request.contextPath}/images/1.jpg)" >
  <font color="orange"><h3>游客：${requestScope.user.uname} </h3></font>
- <div id="one"><a href="${pageContext.request.contextPath}/user/addUser?uname=${requestScope.user.uname}"><img src="../images/2.gif"  height="80px" width="80px"></a></div><br/>
- <div id="two"><a href="#"><img src="../images/3.gif"  height="80px" width="80px"></a></div><br/>
+ <div id="one"><a href="${pageContext.request.contextPath}/resume/addResumes?name=${requestScope.user.uname}"><img src="../images/2.gif"  height="80px" width="80px"></a></div><br/>
+ <div id="two"><a href="${pageContext.request.contextPath}/recruit/queryAllRecruit?name=${requestScope.user.uname}""><img src="../images/3.gif"  height="80px" width="80px"></a></div><br/>
   <div id="three"><a href="#"><img src="../images/4.gif"  height="80px" width="80px"></a></div><br/>
 </body>
 </html>

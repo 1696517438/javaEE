@@ -1,8 +1,9 @@
-package com.jio.dao;
+package com.jio.service;
+
 
 import com.jio.entity.Resume;
 
-public interface ResumeDao {
+public interface ResumeService {
 	
 	public Resume queryResumeByName(String name);
 	

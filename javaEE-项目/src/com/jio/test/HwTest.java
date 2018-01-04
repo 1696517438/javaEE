@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.jio.dao.RecruitDao;
 import com.jio.dao.ResumeDao;
 import com.jio.dao.UserDao;
+import com.jio.entity.Recruit;
 import com.jio.entity.Resume;
 import com.jio.entity.User;
 
@@ -22,6 +24,8 @@ public class HwTest {
 	private UserDao userdao;
 	@Autowired
 	private ResumeDao resumeDao;
+	@Autowired
+	private RecruitDao recruirDao;
 	@Test
 	public void selectUser() {
 		List<User> queryAllUser = userdao.queryAllUser();
@@ -59,6 +63,29 @@ public class HwTest {
 		int addResume = resumeDao.addResume(new Resume(22, "李四", "本科", "123698547", "152@169", "编辑部文员", "300-600", 3, "物业", "社会良民", "学习"));
 		System.out.println(addResume);
 	}
-	
+	@Test
+	public void updateResume() {
+		resumeDao.updateResume(new Resume(2, 28, "李四", "小科", "123698547", "152@169", "编辑部文员", "300-600", 3, "物业", "社会良民", "学习"));
+		
+	}
+	@Test
+	public void updateRid() {
+		int updateRid = userdao.updateRid(2, "123");
+		System.out.println(updateRid);
+		
+	}
+	@Test
+	public void queryResumeById() {
+		Resume queryResumeById = resumeDao.queryResumeById(3);
+		System.out.println(queryResumeById);
+		
+	}
+	@Test
+	public void queryAllRecruit() {
+		
+		List<Recruit> r = recruirDao.queryAllRecruit();
+		System.out.println(r);
+		
+	}
 	
 }

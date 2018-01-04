@@ -17,4 +17,6 @@ public interface UserService {
 	public List<User> queryAllUser();
 	
 	public User queryUserByNameAndPassword(String name,String password);
+	
+	public int updateRid(int id,String name);
 }

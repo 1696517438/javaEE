@@ -29,4 +29,8 @@
 	<select id="queryUserByNameAndPassword" resultMap="UserMap">
 		select * from user where uname=#{name} and upassword=#{password}
 	</select>
+	
+	<update id="updateRid">
+		update user set uresumeid=#{id} where uname=#{name}
+	</update>
 </mapper>
