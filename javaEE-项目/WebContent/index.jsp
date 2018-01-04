@@ -70,7 +70,7 @@
 					<td colspan="2" align="center"><font color="red">${requestScope.manges}</font></td>
 				</tr>
 				<tr>
-					<td colspan="2" align="right"><input type="submit" value="登录" style="width: 160px;background-color: blue" ></td>
+					<td colspan="2" align="right"><input type="submit" value="登录" style="width: 160px;background-color: orange;color:white " ></td>
 				</tr>
 			</table>
 		</form>	

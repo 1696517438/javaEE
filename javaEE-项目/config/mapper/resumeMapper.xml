@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jio.dao.ResumeDao">
+<resultMap type="Resume" id="ResumeMap">
+	<id property="rid" column="rid"></id>
+	<result property="rage" column="rage"/>
+	<result property="rname" column="rname"/>
+	<result property="reducation" column="reducation"/>
+	<result property="rphone" column="rphone"/>
+	<result property="remail" column="remail"/>
+	<result property="rename" column="rename"/>
+	<result property="salary" column="salary"/>
+	<result property="workexperience" column="workexperience"/>
+	<result property="lastwork" column="lastwork"/>
+	<result property="sface" column="sface"/>
+	<result property="hobby" column="hobby"/>
+</resultMap>
+	<select id="queryResumeByName" resultMap="ResumeMap">
+		select * from resume where rname=#{name}
+	</select>
+	<insert id="addResume" parameterType="Resume">
+	insert into resume (rage,rname,reducation,rphone,remail,renames,salary,workexperience,lastwork,sface,hobby)
+	 values (#{rage},#{rname},#{reducation},#{rphone},#{remail},#{rename},#{salary},#{workexperience},#{lastwork},#{sface},#{hobby})
+	</insert>
+
+</mapper>

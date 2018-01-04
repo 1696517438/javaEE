@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.jio.dao.ResumeDao;
 import com.jio.dao.UserDao;
+import com.jio.entity.Resume;
 import com.jio.entity.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,6 +20,8 @@ public class HwTest {
 
 	@Autowired
 	private UserDao userdao;
+	@Autowired
+	private ResumeDao resumeDao;
 	@Test
 	public void selectUser() {
 		List<User> queryAllUser = userdao.queryAllUser();
@@ -45,5 +49,16 @@ public class HwTest {
 		User queryUserByNameAndPassword = userdao.queryUserByNameAndPassword("111", "111");
 		System.out.println(queryUserByNameAndPassword);
 	}
+	@Test
+	public void selectResumeByName() {
+		Resume queryResumeByName = resumeDao.queryResumeByName("张三");
+		System.out.println(queryResumeByName);
+	}
+	@Test
+	public void addResume() {
+		int addResume = resumeDao.addResume(new Resume(22, "李四", "本科", "123698547", "152@169", "编辑部文员", "300-600", 3, "物业", "社会良民", "学习"));
+		System.out.println(addResume);
+	}
+	
 	
 }

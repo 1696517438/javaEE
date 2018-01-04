@@ -43,9 +43,8 @@ public class Usercontroller {
 			return "forward:/index.jsp";
 		}else {
 			if(user.getUtype() ==0) {
-				System.out.println(user.getUtype());
 				model.addAttribute("user", user);
-				return "/tourist";
+				return "forward:/WEB-INF/pages/tourist.jsp";
 			}
 		}
 		return "";

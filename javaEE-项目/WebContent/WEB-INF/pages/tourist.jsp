@@ -5,8 +5,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>游客操作界面</title>
+<style type="text/css">
+	a{
+	text-decoration: none;
+	margin-top:50%;
+	}
+	#one, #three{
+		margin-left: 50px;
+	}
+</style>
 </head>
-<body style="background: url(${pageContext.request.contextPath}/images/2.jpg)" >
-<%-- 游客：${requestScope.user.uname} --%>
+<body style="background: url(${pageContext.request.contextPath}/images/1.jpg)" >
+ <font color="orange"><h3>游客：${requestScope.user.uname} </h3></font>
+ <div id="one"><a href="${pageContext.request.contextPath}/user/addUser?uname=${requestScope.user.uname}"><img src="../images/2.gif"  height="80px" width="80px"></a></div><br/>
+ <div id="two"><a href="#"><img src="../images/3.gif"  height="80px" width="80px"></a></div><br/>
+  <div id="three"><a href="#"><img src="../images/4.gif"  height="80px" width="80px"></a></div><br/>
 </body>
 </html>
