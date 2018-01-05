@@ -21,6 +21,7 @@ public class ResumeController {
 	@RequestMapping("/addResumes")
 	public String addResume(String name,Model model) {
 		User user = userService.queryUserByName(name);
+		System.out.println(user.getUresumeid());
 		model.addAttribute("user", user);
 		Resume resume = resumeService.queryResumeById(user.getUresumeid());
 		model.addAttribute("resume", resume);

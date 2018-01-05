@@ -12,13 +12,26 @@
 	color: red
 	}
 </style>
-<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<!-- <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
 <script type="text/javascript">
-	
-</script>
+$(function(){
+	$("#button").click(function(){
+		var name = $("#na").val();
+		alert(name)
+		 $.post("${pageContext.request.contextPath}/recruit/queryRid",{uname:name},function(data){
+			if(data == 0){
+				 $("#va").text("你还没有填写简历");
+				 $("#na").val("");
+			}else{
+				$("#va").text("");
+			}
+		})
+	})
+	return false;
+})
+</script> -->
 </head>
 <body style="background: url(${pageContext.request.contextPath}/images/bg.jpg)">
-<input type="hidden" name="${requestScope.user.uname }" id="name">
 <c:forEach items="${requestScope.recruit }" var="recruit">
 	<table style="color: yellow">
 		
@@ -54,7 +67,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<a href="#">投递简历</a>
+				<a href="${pageContext.request.contextPath}/recruit/queryRid?uname=${requestScope.user.uname }" id="button">投递简历</a>
+				<font color="blue">${requestScope.mgs}</font>
 			</td>
 		</tr>
 	</table>

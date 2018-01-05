@@ -47,7 +47,8 @@ public class Usercontroller {
 				return "forward:/WEB-INF/pages/tourist.jsp";
 			}
 		}
-		return "";
+		model.addAttribute("user", user);
+		return "forward:/WEB-INF/pages/admin.jsp";
 	}
 //	@RequestMapping("/touristpage")
 //	public String tourist() {

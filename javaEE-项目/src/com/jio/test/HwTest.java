@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.jio.dao.DepartmentDao;
 import com.jio.dao.RecruitDao;
 import com.jio.dao.ResumeDao;
 import com.jio.dao.UserDao;
+import com.jio.entity.Department;
 import com.jio.entity.Recruit;
 import com.jio.entity.Resume;
 import com.jio.entity.User;
@@ -26,6 +28,37 @@ public class HwTest {
 	private ResumeDao resumeDao;
 	@Autowired
 	private RecruitDao recruirDao;
+	@Autowired
+	private DepartmentDao departmentDao;
+	
+	@Test
+	public void delDepartById() {
+		int delDepartById = departmentDao.delDepartById(3);
+		System.out.println(delDepartById);
+	}
+	@Test
+	public void queryDeptById() {
+		Department queryDeptByid = departmentDao.queryDeptByid(1);
+		System.out.println(queryDeptByid);
+	}
+	@Test
+	public void addDepartment() {
+		int addDepartment = departmentDao.addDepartment("研发部");
+		System.out.println(addDepartment);
+	}
+	@Test
+	public void queryDepartmentByName() {
+		Department queryDeptByName = departmentDao.queryDeptByName("财务部");
+		
+		System.out.println(queryDeptByName);
+	}
+	
+	@Test
+	public void queryAllDepartment() {
+		List<Department> deprs = departmentDao.queryAllDepartment();
+		System.out.println(deprs);
+		
+	}
 	@Test
 	public void selectUser() {
 		List<User> queryAllUser = userdao.queryAllUser();

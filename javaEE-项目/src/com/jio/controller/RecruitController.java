@@ -20,10 +20,28 @@ public class RecruitController {
 	@Autowired
 	private RecruitService recruitService;
 	@RequestMapping("queryAllRecruit")
-	public String queryAllRecruit(String name,Model model) {
+	public String queryAllRecruit(String name1,Model model) {
 		List<Recruit> recruit = recruitService.queryAllRecruit();
 		model.addAttribute("recruit", recruit);
-		User user = userService.queryUserByName(name);
+		User user = userService.queryUserByName(name1);
+		model.addAttribute("user", user);
+		return "forward:/WEB-INF/pages/recruit.jsp";
+	}
+	@RequestMapping("queryRid")
+	public String queryRid(String uname,Model model) {
+		User user = userService.queryUserByName(uname);
+		if(user.getUresumeid() == 0) {
+			String mgs = "请填写简历！！";
+			model.addAttribute("mgs", mgs);
+			List<Recruit> recruit = recruitService.queryAllRecruit();
+			model.addAttribute("recruit", recruit);
+			model.addAttribute("user", user);
+			return "forward:/WEB-INF/pages/recruit.jsp";
+		}
+		String mgs = "投递成功！";
+		model.addAttribute("mgs", mgs);
+		List<Recruit> recruit = recruitService.queryAllRecruit();
+		model.addAttribute("recruit", recruit);
 		model.addAttribute("user", user);
 		return "forward:/WEB-INF/pages/recruit.jsp";
 	}
