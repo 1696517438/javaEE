@@ -33,4 +33,8 @@
 	<update id="updateRid">
 		update user set uresumeid=#{id} where uname=#{name}
 	</update>
+	
+	<update id="updatepassword">
+		update user set upassword=#{upassword} where uname=#{name}
+	</update>
 </mapper>

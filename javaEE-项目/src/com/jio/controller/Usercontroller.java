@@ -50,6 +50,23 @@ public class Usercontroller {
 		model.addAttribute("user", user);
 		return "forward:/WEB-INF/pages/admin.jsp";
 	}
+	@RequestMapping("queryUserByNameAndName")
+	@ResponseBody
+	public String queryUserByNameAndName(String uname,String password) {
+		User user = userService.queryUserByNameAndPassword(uname, password);
+		int res = 0;
+		if(user != null) {
+			res+=1;
+		}
+		String result = ""+res;
+		return result;
+		
+	}
+	@RequestMapping("updateUserPassword")
+	public String updateUserPassword(String updatename,String upassword) {
+		int updatepassword = userService.updatepassword(upassword, updatename);
+		return "forward:/index.jsp";
+	}
 //	@RequestMapping("/touristpage")
 //	public String tourist() {
 //		return "tourist";

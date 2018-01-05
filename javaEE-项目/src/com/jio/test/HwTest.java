@@ -10,13 +10,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jio.dao.DepartmentDao;
+import com.jio.dao.PostDao;
 import com.jio.dao.RecruitDao;
 import com.jio.dao.ResumeDao;
 import com.jio.dao.UserDao;
 import com.jio.entity.Department;
+import com.jio.entity.Post;
 import com.jio.entity.Recruit;
 import com.jio.entity.Resume;
 import com.jio.entity.User;
+import com.jio.service.DepartmentService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"/spring.xml","/spring-mvc.xml","/spring-mybatis.xml"})
@@ -30,7 +33,40 @@ public class HwTest {
 	private RecruitDao recruirDao;
 	@Autowired
 	private DepartmentDao departmentDao;
+	@Autowired
+	private PostDao postDao;
+	@Autowired
+	private DepartmentService de;
 	
+	@Test
+	public void updatePassword() {
+		int updatepassword = userdao.updatepassword("123", "111");
+		System.out.println(updatepassword);
+	}
+	@Test
+	public void deldept1() {
+		int delDepartById = de.delDepartById(4);
+		System.out.println(delDepartById);
+	}
+	@Test
+	public void queryAllpost() {
+		List<Post> queryAllPost = postDao.queryAllPost();
+		System.out.println(queryAllPost);
+	}
+	@Test
+	public void delPost() {
+		int addPost = postDao.delPost(3);
+		System.err.println(addPost);
+	}
+	@Test
+	public void addPost() {
+		int addPost = postDao.addPost("ะกนค", 1);
+	}
+	@Test
+	public void queryPostByDid() {
+		List<Post> queryPostByDid = postDao.queryPostByDid(1);
+		System.out.println(queryPostByDid);
+	}
 	@Test
 	public void delDepartById() {
 		int delDepartById = departmentDao.delDepartById(3);

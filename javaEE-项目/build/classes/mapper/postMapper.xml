@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jio.dao.PostDao">
+	<resultMap type="Post" id="postMap">
+		<id property="pid" column="pid"/>
+		<result property="pname" column="pname"/>
+		<result property="did" column="did"/>
+	</resultMap>
+	
+	<select id="queryPostByDid" resultMap="postMap">
+		select * from post where did=#{id}
+	</select>
+	
+	<insert id="addPost">
+		insert into post(pname,did) values (#{name},#{id})
+	</insert>
+	
+	<delete id="delPost">
+		delete from post where pid=#{id}
+	</delete>
+	<select id="queryAllPost" resultMap="postMap">
+		select * from post 
+	</select>
+</mapper>

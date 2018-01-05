@@ -19,4 +19,7 @@ public interface UserDao {
 	public List<User> queryAllUser();
 	
 	public int updateRid(@Param("id")int id,@Param("name")String name);
+	
+	
+	public int updatepassword(@Param("upassword")String upassword,@Param("name")String name);
 }

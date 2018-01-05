@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.updateRid(id, name);
 	}
 
+	@Override
+	public int updatepassword(String upassword, String name) {
+		
+		return userDao.updatepassword(upassword, name);
+	}
+
 }

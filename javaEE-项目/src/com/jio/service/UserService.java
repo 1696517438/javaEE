@@ -19,4 +19,6 @@ public interface UserService {
 	public User queryUserByNameAndPassword(String name,String password);
 	
 	public int updateRid(int id,String name);
+	
+	public int updatepassword(String upassword,String name);
 }

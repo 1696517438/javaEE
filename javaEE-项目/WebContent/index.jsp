@@ -13,7 +13,7 @@
 {
    display:block;
 }
-.div_hide
+.div_hide 
 {
    display:none;
 }
