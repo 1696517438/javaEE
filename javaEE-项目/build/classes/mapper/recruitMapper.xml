@@ -15,4 +15,14 @@
 	<select id="queryAllRecruit" resultMap="recruitMap">
 		select * from recruit;
 	</select>
+	
+	<insert id="addRecruit" parameterType="Recruit">
+		insert into recruit(positions,workexperience,diploma,requires,name,salary,describes)
+		values(#{positions},#{workexperience},#{diploma},#{requires},#{name},#{salary},#{describes})
+	</insert>
+	
+	<delete id="delRecruit">
+		delete from recruit where id=#{id}
+	</delete>
+	
 </mapper>

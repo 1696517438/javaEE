@@ -18,9 +18,7 @@ public class Usercontroller {
 	
 	@RequestMapping("addUser")
 	public String addUser(String uname,String upassword) {
-		System.out.println(uname);
-		int addUser = userService.addUser(new User(uname, upassword, 0));
-		System.out.println(addUser);
+		userService.addUser(new User(uname, upassword, 0));
 		return "forward:/index.jsp";
 	}
 	@RequestMapping("queryUserByName")
@@ -64,7 +62,7 @@ public class Usercontroller {
 	}
 	@RequestMapping("updateUserPassword")
 	public String updateUserPassword(String updatename,String upassword) {
-		int updatepassword = userService.updatepassword(upassword, updatename);
+		 userService.updatepassword(upassword, updatename);
 		return "forward:/index.jsp";
 	}
 //	@RequestMapping("/touristpage")

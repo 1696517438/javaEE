@@ -15,24 +15,26 @@
      color: orange;
     }
 </style>
-<!-- <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.js"></script>
 <script type="text/javascript">
 $(function(){
-	$("#button").click(function(){
-		var name = $("#na").val();
-		alert(name)
-		 $.post("${pageContext.request.contextPath}/recruit/queryRid",{uname:name},function(data){
+	$("a[name='button']").click(function(){
+		var name=$(this).prev().prev().val();
+		var postname=$(this).prev().val();
+		 $.post("${pageContext.request.contextPath}/recruit/queryRid",{uname:name,postname:postname},function(data){
+			 alert(data);
 			if(data == 0){
-				 $("#va").text("你还没有填写简历");
-				 $("#na").val("");
+				 alert("您还未填写简历，不能投递");
+			}else if(data==2){
+				alert("您已经投递过了");
 			}else{
-				$("#va").text("");
+				alert("投递成功");
 			}
 		})
 	})
 	return false;
 })
-</script> -->
+</script>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/images/bg.jpg)">
 <c:forEach items="${requestScope.recruit }" var="recruit">
@@ -40,12 +42,14 @@ $(function(){
 		
 		<tr>
 			<td align="left">公司名字</td>
-			<td align="left">${recruit.name }</td>
+			<td align="left">${recruit.name }
+			</td>
 		</tr>
 		
 		<tr>
 			<td align="left">职位</td>
-			<td align="left">${recruit.positions }</td>
+			<td align="left">${recruit.positions }
+			</td>
 		</tr>
 		<tr>
 			<td align="left">工作经验</td>
@@ -70,11 +74,15 @@ $(function(){
 		</tr>
 		<tr>
 			<td colspan="2">
-				<a href="${pageContext.request.contextPath}/recruit/queryRid?uname=${requestScope.user.uname }" id="button">投递简历</a>
-				<font color="blue">${requestScope.mgs}</font>
+				<%-- <a href="${pageContext.request.contextPath}/recruit/queryRid?uname=${requestScope.user.uname }&post=${recruit.positions}" id="button">投递简历</a> --%>
+				<input type="hidden" value="${requestScope.user.uname }">
+				<input type="hidden" value="${recruit.positions }">
+				<a href="#" name="button">投递简历</a>
+				<a href="${pageContext.request.contextPath}/recruit/returnTourist?uname=${requestScope.user.uname }" >返回</a>
 			</td>
 		</tr>
 	</table>
+	<hr color="white">
 </c:forEach>
 </body>
 </html>

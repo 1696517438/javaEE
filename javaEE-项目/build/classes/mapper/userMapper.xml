@@ -26,6 +26,7 @@
 	<insert id="addUser" parameterType="user">
 	insert into `user`(`uname`,`upassword`,`utype`) values (#{uname},#{upassword},#{utype});
 	</insert>
+	
 	<select id="queryUserByNameAndPassword" resultMap="UserMap">
 		select * from user where uname=#{name} and upassword=#{password}
 	</select>
