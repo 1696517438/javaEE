@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jio.entity.Department;
 import com.jio.entity.Post;
@@ -83,8 +84,44 @@ public class DepartmentController {
 	@RequestMapping("/addDept")
 	public String addDept(String name,Model model) {
 		User user = userService.queryUserByName(name);
+		System.out.println(user);
 		model.addAttribute("user", user);
+		
+		List<Department> department = departmentService.queryAllDepartment();
+		model.addAttribute("department", department);
 		return "forward:/WEB-INF/pages/addDepartAndPost.jsp";
 	}
+	@RequestMapping("/addDepartment")
+	@ResponseBody
+	public String addDepartment(String dname) {
+		Department department = departmentService.queryDeptByName(dname);
+		String result=null;
+		if(department == null) {
+			int res = departmentService.addDepartment(dname);
+			if(res!=0) {
+				result=""+res;
+			}
+		}
+		return result;
+	}
+	@RequestMapping("/addPost")
+	@ResponseBody
+	public String addPost(String pname,int pid) {
+		Post post = postService.queryPostByDidAndPname(pid, pname);
+		String result=null;
+		if(post==null) {
+			int res = postService.addPost(pname, pid);
+			if(res!=0) {
+				result=""+res;
+			}
+		}
+		return result;
+	}
 
+	@RequestMapping("/returnAdmin")
+	public String returnAdmin(String name,Model model) {
+		User user = userService.queryUserByName(name);
+		model.addAttribute("user", user);
+		return "forward:/WEB-INF/pages/admin.jsp";
+	}
 }

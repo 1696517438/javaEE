@@ -39,6 +39,11 @@ public class HwTest {
 	private DepartmentService de;
 	
 	@Test
+	public void queryPostByDidAndPname() {
+		Post queryPostByDidAndPname = postDao.queryPostByDidAndPname(5,"ÍÆÏú");
+		System.out.println(queryPostByDidAndPname);
+	}
+	@Test
 	public void updatePassword() {
 		int updatepassword = userdao.updatepassword("123", "111");
 		System.out.println(updatepassword);

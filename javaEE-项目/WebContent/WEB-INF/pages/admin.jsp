@@ -15,6 +15,9 @@
 	text-decoration: none;
 	color: red;
 	}
+	a:hover{
+     color: blue;
+    }
 	#dept{
 	background-color: white;
 	width: 120px;
@@ -30,7 +33,11 @@
 		margin-top: -100px;
 		margin-left: 100px;
 	}
+	a:hover{
+     color: orange;
+    }
 </style>
+
 </head>
 <body style="background: url(${pageContext.request.contextPath}/images/magin.jpg" >
 	<font color="orange"><h3>管理员：${requestScope.user.uname} </h3></font>

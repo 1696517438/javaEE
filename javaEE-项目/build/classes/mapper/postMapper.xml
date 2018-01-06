@@ -12,6 +12,10 @@
 		select * from post where did=#{id}
 	</select>
 	
+	<select id="queryPostByDidAndPname" resultMap="postMap">
+		select * from post where did=#{id} and pname=#{name}
+	</select>
+	
 	<insert id="addPost">
 		insert into post(pname,did) values (#{name},#{id})
 	</insert>
@@ -22,4 +26,5 @@
 	<select id="queryAllPost" resultMap="postMap">
 		select * from post 
 	</select>
+	
 </mapper>

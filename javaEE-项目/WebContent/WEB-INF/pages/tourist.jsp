@@ -59,6 +59,9 @@
 		margin-left: 250px;
 		margin-top: -300px;
 	}
+	a:hover{
+     color: red;
+    }
 </style>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/images/magin.jpg" >

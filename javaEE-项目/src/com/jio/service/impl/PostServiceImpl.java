@@ -38,4 +38,10 @@ public class PostServiceImpl implements PostService{
 		return postDao.delPost(id);
 	}
 
+	@Override
+	public Post queryPostByDidAndPname(int id, String name) {
+		
+		return postDao.queryPostByDidAndPname(id, name);
+	}
+
 }

@@ -9,7 +9,9 @@ import com.jio.entity.Post;
 public interface PostService {
 	public List<Post> queryAllPost();
 	public List<Post> queryPostByDid(int id);
-	public int addPost(@Param("name")String name,@Param("id")int id);
+	public int addPost(String name,int id);
 	public int delPost(int id);
+	
+	public Post queryPostByDidAndPname(int id,String name);
 
 }
