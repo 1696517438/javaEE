@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jio.dao.EmployeeDao">
+	<resultMap type="Employee" id="EmployeeMap">
+		<id property="eid" column="eid"/>
+		<result property="ename" column="ename"/>
+		<result property="egender" column="egender"/>
+		<result property="age" column="age"/>
+		<result property="education" column="education"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="cometime" column="cometime"/>
+		<result property="sface" column="sface"/>
+		<result property="hobby" column="hobby"/>
+		<result property="rid" column="rid"/>
+		<result property="rename" column="renames"/>
+		<result property="did" column="did"/>
+	</resultMap>
+	
+	<select id="queryEmployeeByName" resultMap="EmployeeMap">
+		select * from employee where ename=#{name}
+	</select>
+	
+	<select id="queryEmployeeById" resultMap="EmployeeMap">
+		select * from employee where eid=#{name}
+	</select>
+	
+	<delete id="delEmployeeByName">
+		delete from  employee where ename=#{name}
+	</delete>
+	
+	<update id="updateEmployee">
+		update employee set renames=#{rename},rid=#{did} where ename=#{name}
+	
+	</update>
+	
+	<insert id="addEmployee" parameterType="Employee">
+		insert into employee(ename,egender,age,education,phone,email,cometime,sface,hobby,rid,renames,did)
+		values
+		(#{ename},#{egender},#{age},#{education},#{phone},#{email},#{cometime},#{sface},#{hobby},#{rid},#{rename},#{did})
+	</insert>
+	
+	
+	<select id="queryAllEmployee" resultMap="EmployeeMap">
+		select * from employee
+	</select>
+</mapper>

@@ -14,12 +14,14 @@ import com.jio.entity.Department;
 import com.jio.entity.Employee;
 import com.jio.entity.Mesage;
 import com.jio.entity.Resume;
+import com.jio.entity.Salary;
 import com.jio.entity.User;
 import com.jio.service.ApplyService;
 import com.jio.service.DepartmentService;
 import com.jio.service.EmployeeService;
 import com.jio.service.MesageService;
 import com.jio.service.ResumeService;
+import com.jio.service.SalaryService;
 import com.jio.service.UserService;
 
 @RequestMapping("user")
@@ -37,6 +39,8 @@ public class Usercontroller {
 	private EmployeeService employeeService;
 	@Autowired
 	private DepartmentService departmentService;
+	@Autowired
+	private SalaryService salaryService;
 	
 	
 	
@@ -107,7 +111,13 @@ public class Usercontroller {
 		}
 		return result;
 	}
-	//游客转换成用工
+	@RequestMapping("GotoUpdate")
+	public String GotoUpdate(String name,Model model) {
+		User user = userService.queryUserByName(name);
+		model.addAttribute("user", user);
+		return "forward:/WEB-INF/pages/update.jsp";
+	}
+	//游客转换成员工
 	@RequestMapping("updateType")
 	@ResponseBody
 	public String updateType(String name,String postname) {
@@ -120,6 +130,9 @@ public class Usercontroller {
 			Resume resume = resumeService.queryResumeById(user.getUresumeid());
 			employeeService.addEmployee(new Employee(resume.getRname(), resume.getGender(), resume.getRage(), resume.getReducation(), resume.getRphone(), resume.getRemail(), new Date(), resume.getSface(), resume.getHobby(), resume.getRid(), resume.getRename(), department.getDid()));
 			Employee employee = employeeService.queryEmployeeByName(resume.getRname());
+			//默认员工的基本工资
+			int addSalery = salaryService.addSalery(new Salary(2300, 0, 0, 0, -400, employee.getEid()));
+			System.out.println(addSalery);
 			int updateEid = userService.updateEid(employee.getEid(), name);
 			mesageService.updateMesage(apply.getId());			
 			int res = userService.updateType(name);
@@ -143,5 +156,20 @@ public class Usercontroller {
 	public String returnIndex() {
 		
 		return "forward:/index.jsp";
+	}
+	
+	@RequestMapping("queryResume")
+	public String queryResume(String name,Model model) {
+		User user = userService.queryUserByName(name);
+		Resume resume = resumeService.queryResumeById(user.getUresumeid());
+		model.addAttribute("user", user);
+		model.addAttribute("resume", resume);
+		return "forward:/WEB-INF/pages/myResume.jsp";
+	}
+	@RequestMapping("returnEmployee")
+	public String returnEmployee(String name,Model model) {
+		User user = userService.queryUserByName(name);
+		model.addAttribute("user", user);
+		return "forward:/WEB-INF/pages/employee.jsp";
 	}
 }

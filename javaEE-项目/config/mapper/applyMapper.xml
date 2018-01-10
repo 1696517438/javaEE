@@ -11,6 +11,7 @@
 		<result property="interviewStatus" column="interviewStatus"/>
 		<result property="post" column="post"/>
 	</resultMap>
+	
 	<select id="quryAllApply" resultMap="applyMap">
 		select * from apply
 	</select>

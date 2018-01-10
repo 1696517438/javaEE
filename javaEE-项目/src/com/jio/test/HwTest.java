@@ -17,6 +17,7 @@ import com.jio.dao.MesageDao;
 import com.jio.dao.PostDao;
 import com.jio.dao.RecruitDao;
 import com.jio.dao.ResumeDao;
+import com.jio.dao.SalaryDao;
 import com.jio.dao.UserDao;
 import com.jio.entity.Apply;
 import com.jio.entity.Department;
@@ -25,6 +26,7 @@ import com.jio.entity.Mesage;
 import com.jio.entity.Post;
 import com.jio.entity.Recruit;
 import com.jio.entity.Resume;
+import com.jio.entity.Salary;
 import com.jio.entity.User;
 import com.jio.service.DepartmentService;
 import com.jio.service.UserService;
@@ -53,6 +55,43 @@ public class HwTest {
 	private MesageDao mesageDao;
 	@Autowired
 	private EmployeeDao eployeeDao;
+	@Autowired
+	private SalaryDao salaryDao;
+	
+	
+	
+	@Test
+	public void updateEmployee() {
+		int updateEmployee = eployeeDao.updateEmployee("财务部 文员", 2, "小黄");
+		System.out.println(updateEmployee);
+	}
+	
+	@Test
+	public void delEmployeeByName() {
+		int delEmployeeByName = eployeeDao.delEmployeeByName("hh");
+		System.out.println(delEmployeeByName);
+	}
+	
+	@Test
+	public void updateSalary() {
+		Salary salary = salaryDao.querySalaryByEid(1);
+		int res = salaryDao.updateSalary(
+				new Salary
+				(salary.getBases()+100, salary.getPerformances(), salary.getOvertime(), salary.getBouns(), salary.getSocial(), salary.getEid()));
+		System.out.println(res);
+	}
+	@Test
+	public void addSalary() {
+		 int addSalery = salaryDao.addSalery(new Salary(2300, 200, 0, 0, -500, 3));
+		 System.out.println(addSalery);
+		
+	}
+	@Test
+	public void querySalaryByEid() {
+		Salary salary = salaryDao.querySalaryByEid(1);
+		System.out.println(salary);
+		
+	}
 	
 	
 	@Test

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jio.dao.MesageDao">
+	<!-- <resultMap type="Mesage" id="mesageMap">
+		<id property="id" column=""/>
+		<result property="InterviewTime" column="InterviewTime"/>
+		<result property="aid" column="aid"/>
+		<result property="isInterview" column="isInterview"/>
+	</resultMap> -->
+
+	<select id="queryAllMesage" resultType="Mesage">
+		select 
+		m.isEmploy isEmploy,
+		a.sendTime "apply.sendTime",
+		m.isInterview isInterview, 
+		m.InterviewTime InterviewTime,
+		a.status "apply.status"
+		 from apply a,mesage m where m.aid=a.id and a.uname=#{name}
+	</select>
+	<select id="queryAllMesageNoNmae" resultType="Mesage">
+		select 
+		m.isEmploy isEmploy,
+		a.sendTime "apply.sendTime",
+		a.uname "apply.uname",
+		m.isInterview isInterview, 
+		m.InterviewTime InterviewTime,
+		a.status "apply.status"
+		 from apply a,mesage m where m.aid=a.id
+	</select>
+	
+	<insert id="addMesage" parameterType="Mesage">
+		insert into mesage(InterviewTime,aid,isInterview,isEmploy) values(#{InterviewTime},#{aid},#{isInterview},#{isEmploy});
+	</insert>
+	<update id="updateMesage" >
+		update mesage set isEmploy="被录用" where aid=#{id}
+	</update>
+
+</mapper>

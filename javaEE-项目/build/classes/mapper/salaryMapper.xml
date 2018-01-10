@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jio.dao.SalaryDao">
+
+	<resultMap type="Salary" id="salaryMap">
+		<id property="sid" column="sid"/>
+		<result property="bases" column="bases"/>
+		<result property="performances" column="performances"/>
+		<result property="overtime" column="overtime"/>
+		<result property="bouns" column="bouns"/>
+		<result property="social" column="social"/>
+		<result property="eid" column="eid"/>
+	</resultMap>
+	
+	<select id="querySalaryByEid" resultMap="salaryMap">
+		SELECT * FROM salay WHERE eid=#{id}
+	</select>
+	
+	<insert id="addSalery" parameterType="Salary">
+		insert into salay(bases,performances,overtime,bouns,social,eid) values(#{bases},#{performances},#{overtime},#{bouns},#{social},#{eid});
+	</insert>
+	
+	<update id="updateSalary" parameterType="Salary">
+		update salay set bases=#{bases},performances=#{performances},overtime=#{overtime},bouns=#{bouns},social=#{social} where eid=#{eid}
+	</update>
+	
+</mapper>

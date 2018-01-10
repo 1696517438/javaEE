@@ -36,6 +36,10 @@ $(function(){
 	function showHideText(){
 	  document.getElementById("div_mianshi_hide").className="div_show";
 	}
+	
+	function showHideTextMes(){
+		  document.getElementById("award_hide").className="div_show";
+		}
 	$(function(){
 		$("#bt").change(function(){
 			var mydate=new Date();
@@ -59,13 +63,55 @@ $(function(){
 		
 	})
 	$(function(){
-			$("#bt").click(function(){
+			$("#bts").click(function(){
 				var result = confirm("确定退出吗？");
 				if(!result){
 					return false;
 				}
 			})
 		})
+		$(function(){
+			$("#send").click(function(){
+				var mydate=new Date();
+				var str = mydate.getDate();
+				if(str > 15){
+					alert("发放成功");
+				}else{
+					alert("15号之后才能发工资");
+				}
+			})
+		})
+		
+		$(function(){
+		$("select[name='dept']").change(function(){
+			var val = $("#department").val();
+			 $.post("${pageContext.request.contextPath}/employee/updateDept",{id:val},function(date){
+				var a = date.split(",");
+				var postname = $("#postname");
+				postname.attr("disabled",false);
+				for (var i = 0; i < a.length; i++) {
+					postname.append("<option >"+a[i]+"</option>");
+				}
+			})
+		})
+	})
+	$(function(){
+		$("#dei_mep").click(function(){
+			var name = $(this).prev().val();
+			var tr = $(this).parent().parent();
+			if(confirm("确定开除"+name+"吗？"))
+			 $.post("${pageContext.request.contextPath}/employee/delEmpByName",{name:name},function(date){
+				if(date == 1){
+					tr.remove
+					
+					alert("删除成功");
+				}else{
+					alert("删除失败");
+				}
+			})
+			return false;
+		})
+	})
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理员页面</title>
@@ -97,7 +143,7 @@ $(function(){
 		margin-left: 20px;
 	}
 	#exit{
-		margin-top: 20px;
+		margin-top: 230px;
 		margin-left: 20px;
 	}
 	#four{
@@ -120,6 +166,26 @@ $(function(){
 {
    display:none;
 }
+.award{
+   display:none;
+}
+#five{
+	margin-left: 210px;
+	margin-top: -290px;
+}
+#queryEmp{
+	margin-left: 210px;
+	margin-top: -290px;
+}
+#employeeMes{
+	margin-left: 210px;
+	margin-top: -290px;
+ }
+ #transfer{
+ 	border:1px solid #FFFFFF;
+ 	width: 300px;
+	margin-left: 210px;
+ }
 </style>
 
 </head>
@@ -147,11 +213,98 @@ $(function(){
 			<img src="${pageContext.request.contextPath}/images/9.gif"  height="80px" width="80px">	
 		</a>
 	</div>
+	
+	<div id="five">
+	 	<a href="${pageContext.request.contextPath}/employee/queryAllEmployee?name=${requestScope.user.uname}">
+	 		<img src="../images/a-1.gif"  height="80px" width="80px">
+	 	</a>
+ 	</div>
+ 	
 	<div id="exit">
-	 	<a href="${pageContext.request.contextPath }/user/returnIndex" id="bt">
+	 	<a href="${pageContext.request.contextPath }/user/returnIndex" id="bts">
 	 		<img src="../images/d-3.gif"  height="80px" width="80px">
 	 	</a>
  	</div>
+ 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<c:if test="${!empty requestScope.employeeMes}">
+		<div id="employeeMes">
+			<table border="1" style="color:white">
+					<tr>
+						<td>名字</td>
+						<td>${requestScope.employeeMes.ename}</td>
+					</tr>
+					<tr>
+						<td>性别</td>
+						<td>${requestScope.employeeMes.egender}</td>
+					</tr>
+					<tr>
+						<td>年龄</td>
+						<td>${requestScope.employeeMes.age}</td>
+					</tr>
+					<tr>
+						<td>学历</td>
+						<td>${requestScope.employeeMes.education}</td>
+					</tr>
+					<tr>
+						<td>联系方式</td>
+						<td>${requestScope.employeeMes.phone}</td>
+					</tr>
+					<tr>
+						<td>电子邮箱</td>
+						<td>${requestScope.employeeMes.email}</td>
+					</tr>
+					<tr>
+						<td>入职时间</td>
+						<td>
+						<f:formatDate value="${requestScope.employeeMes.cometime}" pattern="yyyy-MM-dd"/>
+						</td>
+					</tr>
+					<tr>
+						<td>政治面貌</td>
+						<td>${requestScope.employeeMes.sface}</td>
+					</tr>
+					
+					<tr>
+						<td>爱好</td>
+						<td>${requestScope.employeeMes.hobby}</td>
+					</tr>
+					<tr>
+						<td>职位</td>
+						<td>${requestScope.employeeMes.rename}</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<a href="javaScript:showHideTextMes()">奖赏</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div id="award_hide" class="award">
+								<center>奖赏</center>
+								<form action="">
+									原由:<input type="text" required name="reason"><br/>
+									奖金:<input type="number" required name="amount"><br/>
+									时间:<br/>
+									<input type="date" required name="awardTime"><br/><br/>
+									<input type="submit" value="确认">
+								</form>
+							</div>
+						</td>
+					</tr>
+				</table>
+		</div>
+	</c:if>
 	
 	
 	
@@ -164,6 +317,51 @@ $(function(){
 	
 	
 	
+	<c:if test="${!empty requestScope.employee}">
+		<div id="queryEmp">
+			<table border="1">
+				<tr>
+					<td>编号</td>
+					<td>姓名</td>
+					<td colspan="4" align="center">操作</td>
+				</tr>
+				<c:forEach items="${requestScope.employee }" var="emp">
+					<tr>
+						<td>${emp.eid }</td>
+						<td><a href="${pageContext.request.contextPath }/employee/findEmpById?id=${emp.eid }&name=${requestScope.user.uname}">${emp.ename }</a></td>
+						<td><a href="${pageContext.request.contextPath }/employee/queryAlldept?name=${requestScope.user.uname}&ename=${emp.ename }" >人事调动</a></td>
+						<td><a href="#">考勤</a></td>
+						<td><a href="#" id="send">工资发放</a></td>
+						<td>
+						<input type="hidden" value="${emp.ename }">
+						<a href="#" id="dei_mep">开除</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</c:if>
+	<c:if test="${!empty requestScope.departments}">
+		<div id="transfer">
+			<center>请选择调动的部门职位</center>
+			<center>调动人:${requestScope.ename}</center>
+			<form action="${pageContext.request.contextPath }/employee/updateEmp",method="post">
+				<select name="dept" id="department">
+				<option >选择部门</option>
+					<c:forEach items="${requestScope.departments}" var="dempt">
+						<option value="${dempt.did }">${dempt.dname }</option>
+					</c:forEach>
+				</select>
+				
+				<select id="postname" disabled="disabled" name="post">
+				<option >选择部门职位</option>
+				</select>
+				<input type="hidden" value="${requestScope.user.uname}" name="name">
+				<input type="hidden" value="${requestScope.ename}" name="ename">
+				<input type="submit" value="确认" id="dept_bt">
+			</form>
+		</div>
+	</c:if>
 	
 	
 	
@@ -171,20 +369,6 @@ $(function(){
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		<br/>
 	<div id="dept">
 		<center>
 			<c:forEach items="${requestScope.department }" var="dept">
@@ -209,7 +393,7 @@ $(function(){
 		</center>
 	</div>
 	
-	
+
 	
 	
 	
