@@ -10,5 +10,7 @@ public interface RecruitDao {
 	public int addRecruit(Recruit recruit);
 	
 	public int delRecruit(int id);
+	
+	public int updateRecruit(Recruit recruit);
 
 }

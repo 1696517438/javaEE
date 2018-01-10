@@ -24,5 +24,9 @@
 	<delete id="delDepartById">
 		delete from department where did=#{id}
 	</delete>
+	<select id="queryDepartMentLikeDName" resultMap="deptMap">
+		 <!--  SELECT * FROM department WHERE dname LIKE '%${name}%';  -->
+		   SELECT * FROM department WHERE dname LIKE CONCAT(CONCAT('%', #{name}), '%');
+	</select>
 
 </mapper>

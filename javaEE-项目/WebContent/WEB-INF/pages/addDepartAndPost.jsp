@@ -67,6 +67,7 @@ a:hover{
 </style>
 </head>
 <body style="background: url(${pageContext.request.contextPath}/images/timg.gif)">
+<font color="orange"><h3>管理员：${requestScope.user.uname} </h3></font>
 	<a href="javaScript:showHideText()">添加部门</a>
 	<div id="div_text" class="div_hide">
 		<form action="javaScript:void(0)" method="post">

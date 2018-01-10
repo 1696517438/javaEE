@@ -21,4 +21,8 @@ public interface UserService {
 	public int updateRid(int id,String name);
 	
 	public int updatepassword(String upassword,String name);
+	
+	public int updateType(String name);
+	
+	public int updateEid(int id,String name);
 }

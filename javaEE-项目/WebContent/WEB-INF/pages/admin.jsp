@@ -32,6 +32,40 @@ $(function(){
 	})
 	return false; 
 })
+
+	function showHideText(){
+	  document.getElementById("div_mianshi_hide").className="div_show";
+	}
+	$(function(){
+		$("#bt").change(function(){
+			var mydate=new Date();
+			var str = "" + mydate.getFullYear() + "-";
+		    str += (mydate.getMonth()+1) + "-";
+		    str += mydate.getDate();
+		   
+			var time = $(":input[name='time']").val();
+			var taday=new Date(str.replace("-","/").replace("-","/"));
+			var times = new Date(time.replace("-","/").replace("-","/"));
+			
+			if(times<taday){
+				alert("该日期过期了,请重新输入");
+				$(":input[name='time']").val("");
+				return false;
+			}else{
+				alert("输入正确");
+				return true;
+			}
+		})
+		
+	})
+	$(function(){
+			$("#bt").click(function(){
+				var result = confirm("确定退出吗？");
+				if(!result){
+					return false;
+				}
+			})
+		})
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理员页面</title>
@@ -62,6 +96,10 @@ $(function(){
 		margin-top: 40px;
 		margin-left: 20px;
 	}
+	#exit{
+		margin-top: 20px;
+		margin-left: 20px;
+	}
 	#four{
 		margin-top: 20px;
 		margin-left: 0px;
@@ -74,9 +112,14 @@ $(function(){
 		margin-left: 230px;
 		margin-top: -200px;
 	}
-	a:hover{
-     color: orange;
-    }
+.div_show
+{
+   display:block;
+}
+.div_mianshi
+{
+   display:none;
+}
 </style>
 
 </head>
@@ -100,11 +143,15 @@ $(function(){
 	</div>
 	
 	<div id="four">
-		<a href="${pageContext.request.contextPath}/department/showApply?name=${requestScope.user.uname}" >
+		<a href="${pageContext.request.contextPath}/recruit/addrecruit?name=${requestScope.user.uname}" >
 			<img src="${pageContext.request.contextPath}/images/9.gif"  height="80px" width="80px">	
 		</a>
 	</div>
-	
+	<div id="exit">
+	 	<a href="${pageContext.request.contextPath }/user/returnIndex" id="bt">
+	 		<img src="../images/d-3.gif"  height="80px" width="80px">
+	 	</a>
+ 	</div>
 	
 	
 	
@@ -256,8 +303,20 @@ $(function(){
 						<td>${requestScope.resume.hobby }</td>
 					</tr>
 					<tr>
-						<td align="center"><a>面试</a></td>
+						<td align="center"><a href="javaScript:showHideText()">面试</a></td>
 						<td align="center"><a href="${pageContext.request.contextPath}/department/returnShowApply?name=${requestScope.user.uname}">返回</a></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div id="div_mianshi_hide" class="div_mianshi">
+								<form action="${pageContext.request.contextPath}/department/addMesage" method="post">
+									<input type="date" required name="time" id="bt">
+									<input type="hidden" name="name" value="${requestScope.user.uname}">
+									<input type="hidden" name="id" value="${requestScope.apply1.id}">
+									<input type="submit" value="确认" >
+								</form>
+							</div>
+						</td>
 					</tr>
 				</table>
 			</div>

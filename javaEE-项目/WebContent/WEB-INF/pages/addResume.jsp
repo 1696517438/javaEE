@@ -71,6 +71,7 @@
 				<tr>
 					<td colspan="2" align="center"><input type="submit" value="保存"></td>
 				</tr>
+				
 			</table>
 		</form>	
 	</center>

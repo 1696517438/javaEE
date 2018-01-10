@@ -24,5 +24,8 @@
 	<delete id="delRecruit">
 		delete from recruit where id=#{id}
 	</delete>
-	
+	<update id="updateRecruit" parameterType="Recruit">
+		update recruit set positions=#{positions},workexperience=#{workexperience},diploma=#{diploma},requires=#{requires},name=#{name},salary=#{salary},
+		describes=#{describes} where id=#{id}
+	</update>
 </mapper>

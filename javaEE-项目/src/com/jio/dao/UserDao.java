@@ -22,4 +22,9 @@ public interface UserDao {
 	
 	
 	public int updatepassword(@Param("upassword")String upassword,@Param("name")String name);
+	
+	public int updateType(String name);
+	
+	public int updateEid(@Param("id")int id,@Param("name")String name);
+	
 }

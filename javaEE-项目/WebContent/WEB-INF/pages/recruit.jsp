@@ -22,7 +22,6 @@ $(function(){
 		var name=$(this).prev().prev().val();
 		var postname=$(this).prev().val();
 		 $.post("${pageContext.request.contextPath}/recruit/queryRid",{uname:name,postname:postname},function(data){
-			 alert(data);
 			if(data == 0){
 				 alert("您还未填写简历，不能投递");
 			}else if(data==2){

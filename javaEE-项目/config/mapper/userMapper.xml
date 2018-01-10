@@ -35,6 +35,16 @@
 		update user set uresumeid=#{id} where uname=#{name}
 	</update>
 	
+	<update id="updateType">
+		update user set utype=1 where uname=#{name}
+	</update>
+	
+	<update id="updateEid">
+		update user set eid=#{id} where uname=#{name}
+	</update>
+	
+	
+	
 	<update id="updatepassword">
 		update user set upassword=#{upassword} where uname=#{name}
 	</update>

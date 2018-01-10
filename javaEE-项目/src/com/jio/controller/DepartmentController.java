@@ -1,5 +1,8 @@
 package com.jio.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jio.entity.Apply;
 import com.jio.entity.Department;
+import com.jio.entity.Mesage;
 import com.jio.entity.Post;
 import com.jio.entity.Resume;
 import com.jio.entity.User;
 import com.jio.service.ApplyService;
 import com.jio.service.DepartmentService;
+import com.jio.service.MesageService;
 import com.jio.service.PostService;
 import com.jio.service.ResumeService;
 import com.jio.service.UserService;
@@ -37,6 +42,8 @@ public class DepartmentController {
 	
 	@Autowired
 	private ResumeService resumeService;
+	@Autowired
+	private MesageService mesageService;
 
 	@RequestMapping("/queryAllDept")
 	public String queryAllDept(String name, Model model) {
@@ -152,11 +159,15 @@ public class DepartmentController {
 	
 	@RequestMapping("/LookResume")
 	public String LookResume(String name,String uname,String postname,Model model) {
+		
 		User user = userService.queryUserByName(name);
 		User user1 = userService.queryUserByName(uname);
 		Resume resume = resumeService.queryResumeById(user1.getUresumeid());
+		Apply apply1 = applyService.queryApplyByNameAndPost(uname, postname);
 		
 		applyService.updateStatus(uname,postname);
+		
+		model.addAttribute("apply1",apply1 );
 		model.addAttribute("resume",resume );
 		model.addAttribute("user", user);
 		return "forward:/WEB-INF/pages/admin.jsp";
@@ -169,5 +180,26 @@ public class DepartmentController {
 		List<Apply> apply = applyService.quryAllApply();
 		model.addAttribute("apply", apply);
 		return "forward:/WEB-INF/pages/admin.jsp";
+	}
+	@RequestMapping("/addMesage")
+	public String addMesage(String name,int id,String time,Model model) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String newDate=sdf.format(new Date());
+		Date date = sdf.parse(time);
+		
+		User user = userService.queryUserByName(name);
+		model.addAttribute("user", user);
+		mesageService.addMesage(new Mesage(0, date, id, "按时面试", "未录用"));
+		return "forward:/WEB-INF/pages/admin.jsp";
+	}
+	@RequestMapping("/queryResume")
+	public String queryResume(String name,String uname,Model model) {
+		User user = userService.queryUserByName(name);
+		User user1 = userService.queryUserByName(uname);
+		Resume resume = resumeService.queryResumeById(user1.getUresumeid());
+		model.addAttribute("resume",resume );
+		model.addAttribute("user", user);
+		model.addAttribute("user1", user1);
+		return "forward:/WEB-INF/pages/dmanager.jsp";
 	}
 }

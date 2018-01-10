@@ -9,7 +9,7 @@
 	<result property="reducation" column="reducation"/>
 	<result property="rphone" column="rphone"/>
 	<result property="remail" column="remail"/>
-	<result property="rename" column="rename"/>
+	<result property="rename" column="renames"/>
 	<result property="salary" column="salary"/>
 	<result property="workexperience" column="workexperience"/>
 	<result property="lastwork" column="lastwork"/>

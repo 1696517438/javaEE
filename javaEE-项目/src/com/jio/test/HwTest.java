@@ -12,12 +12,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jio.dao.ApplyDao;
 import com.jio.dao.DepartmentDao;
+import com.jio.dao.EmployeeDao;
+import com.jio.dao.MesageDao;
 import com.jio.dao.PostDao;
 import com.jio.dao.RecruitDao;
 import com.jio.dao.ResumeDao;
 import com.jio.dao.UserDao;
 import com.jio.entity.Apply;
 import com.jio.entity.Department;
+import com.jio.entity.Employee;
+import com.jio.entity.Mesage;
 import com.jio.entity.Post;
 import com.jio.entity.Recruit;
 import com.jio.entity.Resume;
@@ -45,7 +49,93 @@ public class HwTest {
 	private ApplyDao applyDao; 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private MesageDao mesageDao;
+	@Autowired
+	private EmployeeDao eployeeDao;
 	
+	
+	@Test
+	public void queryEmployeeById() {
+		
+		Employee queryEmployeeById = eployeeDao.queryEmployeeById(5);
+		System.out.println(queryEmployeeById);
+	}
+	
+	@Test
+	public void updateApply() {
+		
+		int updateMesage = mesageDao.updateMesage(2);
+	}
+	
+	
+	
+	@Test
+	public void updateEid() {
+		int updateEid = userdao.updateEid(3, "333");
+		
+	}
+	
+	
+	@Test
+	public void queryDepartMentLikeDName() {
+		Department department = departmentDao.queryDepartMentLikeDName("研");
+		System.out.println(department.getDid());
+		
+	}
+	
+	@Test
+	public void queryAllEmployee() {
+		
+		List<Employee> queryAllEmployee = eployeeDao.queryAllEmployee();
+		
+		System.out.println(queryAllEmployee);
+	}
+	
+	@Test
+	public void addEmployee() {
+		int addEmployee = eployeeDao.addEmployee(new Employee("hh", "nan", 18, "12", "12", "64656@616516", new Date(), "adf", "adsf", 1, "das",1));
+		
+		System.out.println(addEmployee);
+	}
+	@Test
+	public void queryEmployeeByName() {
+		Employee employee = eployeeDao.queryEmployeeByName("张三");
+		System.out.println(employee);
+	}
+	@Test
+	public void queryAllMesageNoNmae() {
+		List<Mesage> queryAllMesageNoNmae = mesageDao.queryAllMesageNoNmae();
+		System.out.println(queryAllMesageNoNmae);
+	}
+	@Test
+	public void updateRecruit() {
+		recruirDao.updateRecruit(new Recruit(3, "0", "0", "0", "0", "0", "0", "0"));
+	}
+	@Test
+	public void updateMesage() {
+		int updateMesage = mesageDao.updateMesage(2);
+		System.out.println(updateMesage);
+	}
+	@Test
+	public void addMesage() {
+		int addMesage = mesageDao.addMesage(new Mesage(0, new Date(), 16, "按时面试", "未录用"));
+		
+		System.out.println(addMesage);
+	}
+	@Test
+	public void queryAllMesage() {
+		List<Mesage> queryAllMesage = mesageDao.queryAllMesage("222");
+		for (Mesage mesage : queryAllMesage) {
+			System.out.println(mesage);
+		}
+		
+	}
+	@Test
+	public void delRecuit() {
+		int delRecruit = recruirDao.delRecruit(2);
+		
+	}
 	@Test
 	public void quryuser() {
 		User queryUserByName = userService.queryUserByName("111");

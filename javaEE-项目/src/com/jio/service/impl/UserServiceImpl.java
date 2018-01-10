@@ -56,4 +56,16 @@ public class UserServiceImpl implements UserService{
 		return userDao.updatepassword(upassword, name);
 	}
 
+	@Override
+	public int updateType(String name) {
+		
+		return userDao.updateType(name);
+	}
+
+	@Override
+	public int updateEid(int id, String name) {
+	
+		return userDao.updateEid(id, name);
+	}
+
 }
