@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jio.dao.PushCardDao"> 
+
+	<resultMap type="PushCard" id="pushCardMap">
+		<id property="id" column="id"/>
+		<result  property="ename" column="ename"/>
+		<result  property="starttime" column="starttime"/>
+		<result  property="endtime" column="endtime"/>
+		<result  property="islate" column="islate"/>
+		<result  property="isearly" column="isearly"/>
+		<result  property="year" column="years"/>
+		<result  property="month" column="months"/>
+		<result  property="day" column="days"/>
+	</resultMap>
+	
+	<select id="queryCardByEname" resultMap="pushCardMap">
+		select * from punchcard where ename=#{name}
+	</select>
+	
+	<select id="queryCardByEnameAndYearMonth" resultMap="pushCardMap">
+		select * from punchcard where ename=#{name} and years=#{year} and months =#{month}
+	</select>
+	
+	<select id="queryCardByEnameYearAndMonth" resultMap="pushCardMap">
+		select * from punchcard where ename=#{name} and years=#{year} and months =#{month} and days=#{day} 
+	</select>
+	
+	<insert id="addCard" parameterType="PushCard">
+		insert into punchcard(ename,starttime,endtime,islate,isearly,years,months,days)
+		values(#{ename},#{starttime},#{endtime},#{islate},#{isearly},#{year},#{month},#{day})
+	</insert>
+	
+	<update id="updateCard">
+		update punchcard set endtime=#{endtime},isearly=#{isearly} where ename = #{ename} and years=#{year} and months =#{month} and days=#{day}
+	</update>
+	
+</mapper>
