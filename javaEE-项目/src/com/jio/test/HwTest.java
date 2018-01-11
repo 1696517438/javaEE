@@ -1,6 +1,9 @@
 package com.jio.test;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +18,7 @@ import com.jio.dao.DepartmentDao;
 import com.jio.dao.EmployeeDao;
 import com.jio.dao.MesageDao;
 import com.jio.dao.PostDao;
+import com.jio.dao.PushCardDao;
 import com.jio.dao.RecruitDao;
 import com.jio.dao.ResumeDao;
 import com.jio.dao.SalaryDao;
@@ -24,6 +28,7 @@ import com.jio.entity.Department;
 import com.jio.entity.Employee;
 import com.jio.entity.Mesage;
 import com.jio.entity.Post;
+import com.jio.entity.PushCard;
 import com.jio.entity.Recruit;
 import com.jio.entity.Resume;
 import com.jio.entity.Salary;
@@ -57,7 +62,65 @@ public class HwTest {
 	private EmployeeDao eployeeDao;
 	@Autowired
 	private SalaryDao salaryDao;
+	@Autowired
+	private PushCardDao pushCardDao;
 	
+	@Test
+	public void queryCardByEnameAndYearMonth() {
+		List<PushCard> queryCardByEnameAndYearMonth = pushCardDao.queryCardByEnameAndYearMonth("小黄", 2018, 1);
+		System.out.println(queryCardByEnameAndYearMonth);
+	}
+	@Test
+	public void queryCardByEnameYearAndMonth() {
+		PushCard queryCardByEnameYearAndMonth = pushCardDao.queryCardByEnameYearAndMonth("蔡康", 2018, 1, 11);
+		System.out.println(queryCardByEnameYearAndMonth);
+	}
+	
+	@Test
+	public void updateCard() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date date = new Date();
+		String time =sdf.format(date); 
+		
+		Calendar now = Calendar.getInstance();
+		int year = now.get(Calendar.YEAR);
+		int month = now.get(Calendar.MONDAY);
+		int day = now.get(Calendar.DAY_OF_MONTH);
+		int hour = now.get(Calendar.HOUR);
+		month = month + 1;
+		pushCardDao.updateCard(new PushCard("小黄", "",time, "", "正常下班", ""+year, ""+month, ""+day));
+	}
+	
+	@Test
+	public void addCard() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date date = new Date();
+		String time =sdf.format(date); 
+		
+		Calendar now = Calendar.getInstance();
+		int year = now.get(Calendar.YEAR);
+		int month = now.get(Calendar.MONDAY);
+		int day = now.get(Calendar.DAY_OF_MONTH);
+		int hour = now.get(Calendar.HOUR);
+		month = month + 1;
+		if(hour<10 && hour > 0) {
+			pushCardDao.addCard(new PushCard("小黄", time, "", "正常上班", "", ""+year, ""+month, ""+day));
+		}
+		else if(hour >= 10 && hour < 11) {
+			pushCardDao.addCard(new PushCard("小黄", time, "", "迟到", "", ""+year, ""+month, ""+day));
+		}else {
+			pushCardDao.addCard(new PushCard("小黄", time, "", "旷工", "", ""+year, ""+month, ""+day));
+		}
+		
+		
+		
+	}
+	
+	@Test
+	public void queryCardByname() {
+		List<PushCard> card = pushCardDao.queryCardByEname("蔡康");
+		System.out.println(card);
+	}
 	
 	
 	@Test

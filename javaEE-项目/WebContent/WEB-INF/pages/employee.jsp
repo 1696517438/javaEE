@@ -17,6 +17,48 @@ $(function(){
 		}
 	})
 })
+$(function(){
+	$("#card_play").click(function(){
+		var name = ${requestScope.user.uname}
+		$.ajax({
+			url:"${pageContext.request.contextPath}/employee/queryCard",
+			type:"post",
+			data:{name:name},
+			datatype:"text",
+			success:function(data){
+				if(data == 1){
+					alert("打卡成功");
+				}else if(data == 2){
+					alert("您今天打过卡了");
+				}
+			}
+		})
+	})
+})
+$(function(){
+	$("#closed_play").click(function(){
+		
+		var name = ${requestScope.user.uname}
+		if(confirm("确定下班打卡吗？")){
+			 $.ajax({
+				url:"${pageContext.request.contextPath}/employee/updateCard",
+				type:"post",
+				data:{name:name},
+				datatype:"text",
+				success:function(data){
+					if(data == 1){
+						alert("下班打卡成功");
+					}else if(data == 2){
+						alert("早退打卡成功");
+					}else if(data == 3){
+						alert("旷工打卡成功");
+					}
+				}
+			})
+		}
+		return false;
+	})
+})
 </script>
 
 <style type="text/css">
@@ -30,7 +72,13 @@ $(function(){
 		margin-left: 20px;
 		margin-top: 20px;
 		}
-
+	#three{
+		margin-top: 20px;
+	}
+	#four{
+		margin-top: 20px;
+		margin-left: 20px;
+		}
 	#Mymesage{
 		margin-left: 200px;
 		margin-top: -300px;
@@ -39,22 +87,56 @@ $(function(){
 		margin-left: 200px;
 		margin-top: -300px;
 	}
+	#exit{
+	margin-top: 20px;
+	}
+	#e_dept{
+		margin-left: 200px;
+		margin-top: -300px;
+	}
+	#e_post{
+		margin-left: 300px;
+		margin-top: -120px;
+	}
+	#e_push{
+		margin-left: 250px;
+		margin-top: -300px;
+	}
+	
 </style>
 
 </head>
 <body style="background: url(${pageContext.request.contextPath}/images/magin.jpg" >
-	<font color="orange"><h3>用户：${requestScope.user.uname} </h3></font>
+	<center>
+		<font color="orange"><h3>您好：${requestScope.user.uname}
+		 <a href="#" id="card_play">上班打卡</a>
+		 &nbsp;&nbsp;&nbsp;
+		 <a href="#" id="closed_play">下班打卡</a></h3></font>
+	</center>
 	<div id="one">
 		<a href="${pageContext.request.contextPath}/employee/queryEmployeeByname?name=${requestScope.user.uname}" >
 			<img src="${pageContext.request.contextPath}/images/e-1.gif"  height="80px" width="80px">	
 		</a>
 	</div>
 	
+	
 	  <div id="two">
 	  <a href="${pageContext.request.contextPath}/user/GotoUpdate?name=${requestScope.user.uname}">
 	  	<img src="../images/6.gif"  height="80px" width="80px">
 	  </a>
-  </div><br/>
+  </div>
+  
+  <div id="three">
+		<a href="${pageContext.request.contextPath}/employee/queryDept?name=${requestScope.user.uname}" >
+			<img src="${pageContext.request.contextPath}/images/e-2.gif"  height="80px" width="80px">	
+		</a>
+	</div>
+	
+	 <div id="four">
+		<a href="${pageContext.request.contextPath}/employee/queryPushCard?name=${requestScope.user.uname}" >
+			<img src="${pageContext.request.contextPath}/images/e-3.gif"  height="80px" width="80px">	
+		</a>
+	</div>
 	
 	<div id="exit">
 	 	<a href="${pageContext.request.contextPath }/user/returnIndex" id="bt">
@@ -62,7 +144,7 @@ $(function(){
 	 	</a>
  	</div>
 	
-	
+
 	
 	
 
@@ -141,5 +223,84 @@ $(function(){
 			</div>
 	</c:if>
 	
+	<c:if test="${!empty requestScope.departments}">
+		<div id="e_dept">
+			部门
+			<table>
+				<c:forEach items="${requestScope.departments}" var="dept">
+					<tr>
+						<td><a href="${pageContext.request.contextPath }/employee/queryPost?name=${requestScope.user.uname}&dname=${dept.dname}">${dept.dname }</a></td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty requestScope.posts}">
+		<div id="e_post">
+			职位
+			<table>
+				<c:forEach items="${requestScope.posts}" var="post">
+					<tr>
+						<td>
+							<font color="white">${post.pname }</font>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty requestScope.pushCard}">
+		<div id="e_push">
+			<form action="${pageContext.request.contextPath }/employee/findCard">
+			<input type="hidden" name="name" value="${requestScope.user.uname}">
+				<select name="year">
+					<option value="2018">2018</option>
+					<option value="2017">2017</option>
+					<option value="2016">2016</option>
+				</select>
+				<select name="month">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				</select>
+				<input type="submit" value="确认查询">
+			</form>
+			<table border="1">
+				<tr>
+					<td>上班时间</td>
+					<td>下班时间</td>
+					<td>是否迟到</td>
+					<td>是否早退</td>
+				</tr>
+				<c:forEach items="${requestScope.pushCard}" var="pushCard">
+					<tr>
+						<td>
+							${pushCard.starttime }
+						</td>
+						<td>
+							${pushCard.endtime }
+						</td>
+						<td>
+							${pushCard.islate }
+						</td>
+						<td>
+							${pushCard.isearly }
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</c:if>
 </body>
 </html>
